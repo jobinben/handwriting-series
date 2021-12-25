@@ -64,7 +64,7 @@ function test(a, b, c) {
     }
 }
 
-const res = test.isCall(obj, 'AA', 'BB', 'CC')
+let res = test.isCall(obj, 'AA', 'BB', 'CC')
 // console.log(this.name)
 // test()
 // test.isCall(obj)
@@ -72,3 +72,15 @@ const res = test.isCall(obj, 'AA', 'BB', 'CC')
 console.log(res)
 
 
+// practice 01
+Function.prototype.myCall = function (thisArg) {
+    thisArg = thisArg || window
+    thisArg.fn = this
+    let args = Array.prototype.slice.call(arguments, 1)
+    const res = thisArg.fn(...args)
+    delete thisArg.fn
+    return res
+}
+
+res = test.myCall(obj, 'AA', 'BB', 'CC')
+console.log('myBind: ', res)

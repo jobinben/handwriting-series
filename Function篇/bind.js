@@ -29,9 +29,23 @@ function test(a, b, c, d) {
     }
 }
 
-const res = test.toBind(obj, 'AA', 'BB', 'CC')('DD')
-const resTwo = test.toBind(obj, 'AA', 'BB', 'CC')
+let res = test.toBind(obj, 'AA', 'BB', 'CC')('DD')
+let resTwo = test.toBind(obj, 'AA', 'BB', 'CC')
 resTwo('EE')
 
 const standard = test.bind(obj, 'aa', 'bb', 'cc')
 standard('dd')
+
+// practice 01
+Function.prototype.myBind = function(thisArg) {
+    thisArg = thisArg || window
+    let args = Array.prototype.slice.call(arguments, 1)
+    const that = this
+    return function() {
+        that.apply(thisArg, [...args, ...arguments])
+    }
+}
+
+res = test.myBind(obj, 'A', 'B', 'C')('D')
+resTwo = test.myBind(obj, 'a', 'b', 'c')
+resTwo('d')

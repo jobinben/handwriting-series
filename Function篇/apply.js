@@ -29,9 +29,22 @@ function test(a, b, c) {
     }
 }
 
-const res = test.toApply(obj, ['AA', 'BB', 'CC'])
+let res = test.toApply(obj, ['AA', 'BB', 'CC'])
 const standard = test.apply(obj, ['aa', 'bb', 'cc'])
 
 console.log('res: ', res)
 console.log('standard: ', standard)
+
+// practice 01
+Function.prototype.myApply = function(thisArg) {
+    thisArg = thisArg || window
+    thisArg.fn = this
+    let args = Array.prototype.slice.call(arguments[1])
+    const res = thisArg.fn(...args)
+    delete thisArg.fn
+    return res
+}
+
+res = test.myApply(obj, ['AA', 'BB', 'CC'])
+console.log('myApply: ', res)
 
