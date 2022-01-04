@@ -49,3 +49,14 @@ Function.prototype.myBind = function(thisArg) {
 res = test.myBind(obj, 'A', 'B', 'C')('D')
 resTwo = test.myBind(obj, 'a', 'b', 'c')
 resTwo('d')
+
+
+// practice 02
+Function.prototype.myBind02 = function(thisArg) {
+    thisArg = thisArg || window
+    let args = Array.prototype.slice.call(arguments, 1)
+    const that = this
+    return function() {
+        that.apply(thisArg, [...args, ...arguments])
+    }
+}

@@ -84,3 +84,13 @@ Function.prototype.myCall = function (thisArg) {
 
 res = test.myCall(obj, 'AA', 'BB', 'CC')
 console.log('myBind: ', res)
+
+// practice 02
+Function.prototype.myCall02 = function(thisArg) {
+    thisArg = thisArg || window
+    thisArg.fn = this
+    let args = Array.prototype.slice.call(arguments, 1)
+    const res = thisArg.fn(...args)
+    delete thisArg.fn
+    return res
+}

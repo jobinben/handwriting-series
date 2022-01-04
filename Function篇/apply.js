@@ -48,3 +48,13 @@ Function.prototype.myApply = function(thisArg) {
 res = test.myApply(obj, ['AA', 'BB', 'CC'])
 console.log('myApply: ', res)
 
+// practice 02
+Function.prototype.myApply02 = function(thisArg) {
+    thisArg = thisArg || window
+    thisArg.fn = this
+    let args = Array.prototype.slice.call(arguments[1])
+    const res = thisArg.fn(...args)
+    delete thisArg.fn
+    return res
+}
+
