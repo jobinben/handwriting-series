@@ -53,3 +53,16 @@ console.log('test: ----------------------')
 arr = [1, 2, 3]
 console.log('arr instanceof Array:')
 console.log(toInstanceof(arr, Array))
+
+
+// practice 02 
+const myInstanceof02 = (obj, cons) => {
+    if ((typeof obj !== 'object' && typeof obj !== 'function') || obj === null) return false;
+
+    let objProto = Object.getPrototypeOf(obj)
+    while (true) {
+        if (objProto === null) return false;
+        if (objProto === cons.prototype) return true;
+        objProto = Object.getPrototypeOf(obj)
+    }
+}

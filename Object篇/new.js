@@ -46,3 +46,13 @@ const myNew = (cons) => {
 
     return typeof(res) === 'object' ? res : obj
 }
+
+// practice 02
+
+const myNew02 = (cons) => {
+    let obj = Object.create(null)
+    Object.setPrototypeOf(obj, cons.prototype)
+    let res = cons.apply(obj, Array.prototype.slice.call(arguments, 1))
+
+    typeof res === 'object' ? res : obj
+}
