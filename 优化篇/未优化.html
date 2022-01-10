@@ -7,7 +7,15 @@
     <title>未优化</title>
 </head>
 <body>
-    
+        
+    <script>
+        let t1, t2 = 0
+        t1 = new Date() // 页面开始加载
+        window.onload = (event) => {
+            t2 = new Date() // 页面加载完毕
+            console.log(`页面加载完毕用时: ${t2 - t1}ms`)
+        }
+    </script>
     <script>
         const a = () => {
             b()
