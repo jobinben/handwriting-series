@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优化后</title>
+</head>
+<body>
+
+    <script>
+        // 用worker线程优化 通过postMessage传递num过去
+        // const runWorker = (url, num) => {
+        //     const worker = new Worker(url)
+        //     worker.postMessage(num)
+        //     worker.onmessage = (evt) => {
+        //         console.log('evt: ', evt.data)
+        //     }
+        //     worker.onerror = (err) => {
+        //         console.log('err: ', err)
+        //     }
+        // }
+        // 用worker线程优化 promise封装 postMessage本就使用异步的方式传递参数
+        const runWorker = (url, num) => {
+            return new Promise((resolve, reject) => {
+                const worker = new Worker(url)
+                worker.postMessage(num)
+                worker.onmessage = (evt) => {
+                    resolve(evt.data)
+                }
+                worker.onerror = reject
+            })
+            
+        }
+    </script>
+    
+    <script>
+        const a = () => {
+            b()
+        }
+
+        const b = () => {
+            // 把b函数之前的数据逻辑的处理过程交给worker.js线程中的message事件去处理
+            runWorker('./worker.js', 10*10000*10000).then(res => {
+                console.log('res 01: ', res)
+            }).catch(err => {
+                console.log('err 01: ', err)
+            })
+        }
+        a()
+    </script>
+
+    <script>
+        const c = () => {
+            d()
+        }
+        const d = () => {
+            // 把d函数之前的数据逻辑的处理过程交给worker02.js线程中的message事件去处理
+            runWorker('./worker02.js', 10*10000*10000).then(res => {
+                console.log('res 02: ', res)
+            }).catch(err => {
+                console.log('err 02: ', err)
+            })
+        }
+
+        c()
+    </script>
+</body>
+</html>
