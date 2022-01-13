@@ -2,15 +2,13 @@
 // 应用场景: 拖拽，还有scroll滑动
 const throttle = (fn, delay = 300) => {
     let timer = null
-    let flag = true
     return function() {
-        if(!flag) {
+        if(timer) {
             return;
         }
-        flag = false
         timer = setTimeout(() => {
             fn.apply(this, arguments)
-            flag = true
+            timer = null
         }, delay)
     }
 }
