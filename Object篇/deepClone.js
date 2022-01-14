@@ -15,7 +15,11 @@ const deepClone = (obj) => {
 
     for(let key in obj) {
         // res[key] = obj[key] // 浅拷贝
-        res[key] = deepClone(obj[key]) // 这样子会把原型上的属性给赋值上去
+        // res[key] = deepClone(obj[key]) // 这样子会把原型上的属性给赋值上去
+        // 优化，不要原型上的属性
+        if(obj.hasOwnProperty(key)) {
+            res[key] = deepClone(obj[key])
+        }
     }
 
     return res
