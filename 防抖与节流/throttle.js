@@ -22,3 +22,19 @@ boxDOM.addEventListener('drag', throttle(function(e) {
 // boxDOM.addEventListener('drag', function(e) {
 //     console.log(e.offsetX, e.offsetY)
 // })
+
+
+
+// practice 02
+
+const throttle_02 = (fn, delay = 300) => {
+    let timer = null
+
+    return function() {
+        if(timer) return;
+        timer = setTimeout(() => {
+            fn.apply(this, arguments)
+            timer = null
+        }, delay)
+    }
+}
