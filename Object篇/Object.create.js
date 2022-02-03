@@ -12,3 +12,11 @@ Object.myCreate = (fn) => {
     F.prototype = fn
     return new F()
 }
+
+// practice 02
+
+Object.create_02 = (fn) => {
+    function F(){}
+    F.prototype = fn
+    return new F()
+}

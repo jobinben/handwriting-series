@@ -44,3 +44,26 @@ newObj.friends.name = 'jojo'
 
 console.log('oldObj : ', oldObj)
 console.log('newObj : ', newObj)
+
+
+
+// practice 01
+
+const deepClone = (obj) => {
+    // 基本类型返回false
+    if((typeof obj !== 'object' && typeof obj !== 'function') || obj === null) return false
+
+    let res
+    if(obj instanceof Array) {
+        res = []
+    } else {
+        res = {}
+    }
+    for(let key in obj) {
+        if(obj.hasOwnProperty(key)) {
+            res[key] = deepClone_02(obj[key])
+        }
+    }
+
+    return res
+}
