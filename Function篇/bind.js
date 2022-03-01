@@ -60,3 +60,17 @@ Function.prototype.myBind02 = function(thisArg) {
         that.apply(thisArg, [...args, ...arguments])
     }
 }
+
+// practice 03
+Function.prototype.myBind03 = function(thisArg) {
+    thisArg = thisArg || window;
+
+    let arg = Array.prototype.slice.call(arguments, 1);
+
+    const that = this;
+
+    return function() {
+        that.apply(thisArg, [...arg, ...arguments]);
+    }
+    
+}

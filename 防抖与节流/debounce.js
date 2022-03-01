@@ -2,7 +2,7 @@
 // 应用场景: 减少http请求，只发送最后一次结果的请求。比如在输入框输入搜索的关键词时。
 const debounce = (fn, delay = 300) => {
     let timer = null
-    
+
     return function () { // 不要用箭头函数实现，不然this的指向不是本身啦。
         timer && clearTimeout(timer)
         timer = setTimeout(() => {
@@ -13,7 +13,7 @@ const debounce = (fn, delay = 300) => {
 
 const inputDOM = document.getElementById('myInput')
 
-inputDOM.addEventListener('input', debounce(function(e) {
+inputDOM.addEventListener('input', debounce(function (e) {
     // 如果fn是箭头函数，this将指向windows 而不是input元素本身
     console.log('this: ', this)
     console.log('e: ', e)
@@ -36,10 +36,23 @@ inputDOM.addEventListener('input', debounce(function(e) {
 const debounce_02 = (fn, delay = 300) => {
     let timer = null
 
-    return function() {
+    return function () {
         timer && clearTimeout(timer)
         timer = setTimeout(() => {
             fn.apply(this, arguments)
         }, delay)
+    }
+}
+
+// practice 02
+
+const debounce_03 = (fn, delay = 300) => {
+    let timer = null;
+
+    return function () {
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(this, arguments)
+        }, delay);
     }
 }

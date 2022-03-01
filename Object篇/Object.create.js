@@ -20,3 +20,11 @@ Object.create_02 = (fn) => {
     F.prototype = fn
     return new F()
 }
+
+// practice 03
+
+Object.create_03 = (obj) => {
+    function F(){}
+    F.prototype = obj;
+    return new F();
+}

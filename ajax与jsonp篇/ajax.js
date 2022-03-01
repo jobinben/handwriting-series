@@ -59,3 +59,26 @@ myAjax(url).then(res => {
 }).catch(err => {
     console.log(err)
 })
+
+
+// practice 02
+
+const Ajax_02 = (url) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4) {
+            // success connect
+            if(xhr.status === 200) {
+                // response 200
+                return JSON.parse(xhr.responseText);
+            } else {
+                return 'other http code';
+            }
+        }
+    }
+
+    xhr.send(null);
+
+
+}

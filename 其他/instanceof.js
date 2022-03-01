@@ -63,6 +63,20 @@ const myInstanceof02 = (obj, cons) => {
     while (true) {
         if (objProto === null) return false;
         if (objProto === cons.prototype) return true;
-        objProto = Object.getPrototypeOf(obj)
+        objProto = Object.getPrototypeOf(objProto)
+    }
+}
+
+// practice 03
+
+const myInstanceof_03 = (obj, cons) => {
+    if ((typeof obj !== 'object' && typeof obj !== 'function') || obj === null) return false;
+
+    let objProto = Object.getPrototypeOf(obj);
+
+    while (1) {
+        if (objProto === null) return false;
+        if (objProto === cons.prototype) return true;
+        objProto = Object.getPrototypeOf(objProto);
     }
 }

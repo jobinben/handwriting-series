@@ -3,7 +3,7 @@
 // 思路: 
 // 1. this 指向上层原型链的函数本身  
 // 2. 传入的对象，在对象上创建函数，接着在链式的隐式绑定执行函数 函数的this就会指向对象
-Function.prototype.toApply = function(obj) {
+Function.prototype.toApply = function (obj) {
     obj = obj || window
     obj.fn = this
     // 把arguments参数转化为正常的数组
@@ -36,7 +36,7 @@ console.log('res: ', res)
 console.log('standard: ', standard)
 
 // practice 01
-Function.prototype.myApply = function(thisArg) {
+Function.prototype.myApply = function (thisArg) {
     thisArg = thisArg || window
     thisArg.fn = this
     let args = Array.prototype.slice.call(arguments[1])
@@ -49,7 +49,7 @@ res = test.myApply(obj, ['AA', 'BB', 'CC'])
 console.log('myApply: ', res)
 
 // practice 02
-Function.prototype.myApply02 = function(thisArg) {
+Function.prototype.myApply02 = function (thisArg) {
     thisArg = thisArg || window
     thisArg.fn = this
     let args = Array.prototype.slice.call(arguments[1])
@@ -58,3 +58,15 @@ Function.prototype.myApply02 = function(thisArg) {
     return res
 }
 
+// practice 03
+
+Function.prototype.myApply03 = function (thisArg) {
+    thisArg = thisArg || window;
+
+    thisArg.fn = this;
+
+    let args = Array.prototype.slice.call(arguments[1]);
+    const res = thisArg.fn(...args);
+    delete thisArg.fn;
+    return res;
+}

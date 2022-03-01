@@ -2,8 +2,8 @@
 // 应用场景: 拖拽，还有scroll滑动
 const throttle = (fn, delay = 300) => {
     let timer = null
-    return function() {
-        if(timer) {
+    return function () {
+        if (timer) {
             return;
         }
         timer = setTimeout(() => {
@@ -15,7 +15,7 @@ const throttle = (fn, delay = 300) => {
 
 const boxDOM = document.getElementById('box')
 
-boxDOM.addEventListener('drag', throttle(function(e) {
+boxDOM.addEventListener('drag', throttle(function (e) {
     console.log(e.offsetX, e.offsetY)
 }, 200))
 
@@ -30,11 +30,23 @@ boxDOM.addEventListener('drag', throttle(function(e) {
 const throttle_02 = (fn, delay = 300) => {
     let timer = null
 
-    return function() {
-        if(timer) return;
+    return function () {
+        if (timer) return;
+        timer = setTimeout(() => {
+            fn.apply(this, arguments);
+            timer = null;
+        }, delay);
+    }
+}
+
+// practice 03
+
+const throttle_03 = (fn, delay = 300) => {
+    let timer = null;
+    return function () {
+        if (timer) return;
         timer = setTimeout(() => {
             fn.apply(this, arguments)
-            timer = null
-        }, delay)
+        }, delay);
     }
 }
